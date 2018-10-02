@@ -1,11 +1,16 @@
 <html>
 
-<body onload="getLocation()">
-    <div id="demo">hey2</div>
+<body>
+    <div id="demo">hey auto</div>
 </body>
     
     <script>
         var x = document.getElementById("demo");
+
+        window.setInterval(function(){
+            getLocation()
+        }, 3000);
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -15,7 +20,8 @@
         }
         function showPosition(position) {
             x.innerHTML = "Latitude: " + position.coords.latitude + 
-            "<br>Longitude: " + position.coords.longitude; 
+            "<br>Longitude: " + position.coords.longitude +
+            "time: " + new Date().getTime();
         }
     </script>
 </html>
