@@ -1,7 +1,8 @@
 <html>
 
 <body>
-    <div id="demo">hey auto</div>
+    <div id="demo">hey auto</div><br>
+    <div id="demo2"></div>
 </body>
     
     <script>
@@ -22,6 +23,29 @@
             x.innerHTML = "Latitude: " + position.coords.latitude + 
             "<br>Longitude: " + position.coords.longitude +
             "time: " + new Date().getTime();
+            saveData(position);
+        }
+
+        function saveData(position){
+            var request = new XMLHttpRequest();
+            var user = "03cc00dc-4d01-48fe-8845-8e5f0de0f15a-bluemix";
+            var pass = "663e7a9f226caa678a884c2b3df66ea28f8ca5236569f33fd387945428ec18dc";
+
+            var authorizationBasic = window.btoa(user + ':' + pass);
+
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("demo2").innerHTML = xhttp.responseText;
+                }
+            };
+            url = "https://03cc00dc-4d01-48fe-8845-8e5f0de0f15a-bluemix.cloudant.com/iot"
+            request.open('POST', url, true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
+            request.setRequestHeader('Accept', 'application/json');
+            request.send("username=John&password=Smith&grant_type=password");
+
+            request.send();
         }
     </script>
 </html>
